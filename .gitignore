@@ -1,0 +1,9 @@
+# Ignore the virtual environment folder
+myVenv/
+
+# Ignore Visual Studio Code settings
+.vscode/
+
+# Ignore other temporary or sensitive files
+*.pyc
+__pycache__/
