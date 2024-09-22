@@ -4,7 +4,42 @@
 
 {% block content %}
 
-    
+<section id="RentalSpace" class="mt-lg-4 shadow-sm ">
+       <h3 class="text-center">Available Rental Spaces</h3>
+       <!-- Content for rental spaces -->
+       <div class="container">
+     
+            
+           <div class="row p-2 d-flex ">
+                 <div class="col-12 mb-4">
+                     <div class="card shadow-lg" style="width: 80rem;">
+                         <img src="{% static '2.jpg' %}" class="card-img-top" alt="...">
+                         <div class="card-body">
+                             <h6 class="card-title">Name: {{ space.name }}</h6>
+                             <p class="card-text">Description: {{ space.description }}</p>
+                             <p class="card-text">Status: {{ space.status }}</p>
+                             <p class="card-text">Price: {{ space.price }}</p>
+                             <p class="card-text">Dimensions: {{ space.dimensions }}</p>
+
+
+                         </div>
+                         <div class="card-footer d-flex justify-content-center">
+                             <a href="#" class="btn btn-primary">
+                                      <i class="bi bi-search"></i> Avail
+                              </a>
+                         </div>
+                     </div>
+                 </div>
+         
+          
+           </div>
+     
+       </div>
+        
+     </section>
+       
+
+
 
 
 {% endblock %}

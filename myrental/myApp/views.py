@@ -13,7 +13,9 @@ def login(request):
 
 def rentalspace(request):
 
-    return render (request,"myapp/rentalspaceavailable.html")
+    rentals_space = RentalSpaces.objects.filter(status="Available")
+    
+    return render(request, "myapp/rentalspaceavailable.html", {'rentalspace': rentals_space}) 
 
 def rentalspaceview(request,id):
 
