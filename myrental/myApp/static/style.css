@@ -1,3 +1,23 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+}
+
+footer {
+   
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto; 
+}
 
 
 
@@ -5,9 +25,4 @@ section{
     scroll-margin-top: 100px; 
     height: 100vh;
     scroll-behavior: smooth;
-}
-footer{
-
-    height: 30vh;
-
 }
