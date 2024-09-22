@@ -42,88 +42,38 @@
 
 </section>
   
-<section id="RentalSpace" class="mt-lg-4">
-    <h3 class="text-center">Available Rental Spaces</h3>
-    <!-- Content for rental spaces -->
+<section id="RentalSpace" class="mt-lg-4 shadow-sm">
+  <h3 class="text-center">Available Rental Spaces</h3>
+  <!-- Content for rental spaces -->
+  <div class="container h-100">
+
+       
+      <din class="row p-2 d-flex ">
+        {% for space in rentalspace %}
+            <div class="col-4 mb-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{% static '2.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h6 class="card-title">Name: {{ space.name }}</h6>
+                        <p class="card-text">Description: {{ space.description }}</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center">
+                        <a href="{% url 'rentalspaceview' space.space_id %}" class="btn btn-primary">
+                                 <i class="bi bi-search"></i> View
+                         </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    
+     
+      </din>
+
+  </div>
+   
 </section>
   
-<section id="Pricing" class="mt-lg-4">
-    <h3 class="text-center">Pricing and Plans</h3>
-    <div class="container mt-4">
-      <div class="row">
-        <!-- Plan 1 -->
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 d-flex flex-column shadow-sm">
-            <div class="card-body">
-              <h3 class="card-title">Basic Plan</h3>
-              <h4 class="card-subtitle mb-2 text-muted">$99 / month</h4>
-              <ul class="list-unstyled">
-                <li>Up to 500 sq. ft.</li>
-                <li>Basic amenities included</li>
-                <li>24/7 customer support</li>
-                <li>Access to common areas</li>
-              </ul>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-info">Sign Up</a>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Plan 2 -->
-        <div class="col-md-4 mb-4">
-          <div class="card h-100 d-flex flex-column shadow-sm">
-            <div class="card-body">
-              <h3 class="card-title">Standard Plan</h3>
-              <h4 class="card-subtitle mb-2 text-muted">$199 / month</h4>
-              <ul class="list-unstyled">
-                <li>Up to 1000 sq. ft.</li>
-                <li>All Basic amenities</li>
-                <li>Priority customer support</li>
-                <li>Private office space</li>
-                <li>Free parking</li>
-              </ul>
-              
-            </div>
-            <div class="card-footer">
-              <a href="#" class="btn btn-info">Sign Up</a>
-            </div>
-          </div>
-        </div>
-  
-       <!-- Plan 3 -->
-<div class="col-md-4 mb-4">
-  <div class="card h-100 d-flex flex-column shadow-sm">
-    <div class="card-body d-flex flex-column">
-      <div class="mb-auto">
-        <h3 class="card-title">Premium Plan</h3>
-        <h4 class="card-subtitle mb-2 text-muted">$299 / month</h4>
-        <ul class="list-unstyled">
-          <li>Up to 2000 sq. ft.</li>
-          <li>All Standard amenities</li>
-          <li>Dedicated customer support</li>
-          <li>Private office and meeting rooms</li>
-          <li>Access to premium amenities</li>
-          <li>Free on-site events</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card-footer">
-      <a href="#" class="btn btn-info">Sign Up</a>
-    </div>
-  </div>
-</div>
 
-      </div>
-    </div>
-  </section>
-  
-  
-  
-  <section id="3DVirtualTour" class="mt-lg-4">
-    <h3 class="text-center">3D Virtual Tour</h3>
-    <!-- Content for the 3D Virtual Tour -->
-  </section>
   
   <section id="AboutUs" class="mt-lg-4">
     <h3  class="text-center">About Us</h3>

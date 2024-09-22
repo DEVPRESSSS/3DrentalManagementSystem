@@ -38,6 +38,10 @@ class RentalSpaces(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+    
 class Tenant(models.Model):
     PAYMENT_STATUS_CHOICES = [
         ('Paid', 'Paid'),
@@ -45,10 +49,10 @@ class Tenant(models.Model):
     ]
 
     tenant_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey('User', on_delete=models.CASCADE)  # Foreign key to User model
+    user = models.ForeignKey('User', on_delete=models.CASCADE) 
     lease_start_date = models.DateField()
     lease_end_date = models.DateField()
-    rental_space = models.ForeignKey('RentalSpaces', on_delete=models.CASCADE)  # Foreign key to RentalSpaces
+    rental_space = models.ForeignKey('RentalSpaces', on_delete=models.CASCADE) 
     monthly_rent = models.DecimalField(max_digits=10, decimal_places=2)
     payment_status = models.CharField(max_length=10, choices=PAYMENT_STATUS_CHOICES)
 
@@ -58,7 +62,7 @@ class Tenant(models.Model):
 
 class Payment(models.Model):
     payment_id = models.AutoField(primary_key=True)
-    tenant = models.ForeignKey('Tenant', on_delete=models.CASCADE)  # Foreign key to Tenant model
+    tenant = models.ForeignKey('Tenant', on_delete=models.CASCADE)  
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     payment_date = models.DateTimeField(auto_now_add=True)
     payment_method = models.CharField(max_length=50)
