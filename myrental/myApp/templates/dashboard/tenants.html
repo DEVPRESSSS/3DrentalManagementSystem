@@ -1,0 +1,63 @@
+{% extends "dashboard/dash_base.html" %}
+{% load static %} 
+
+{% block content %}
+
+  <p>Tenant list</p>
+  <div class="table-responsive  mt-1 p-1">
+    <table class="table select-table">
+      <thead>
+        <tr>
+          <th class="text-center">TenantID</th>
+          <th>Tenant Name</th>
+          <th>Lease Start date</th>
+          <th>Lease End date</th>
+          <th>Rental Space</th>
+          <th>Monthly rent</th>
+          <th> Payment Status</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for tenant_count in tenants_list %}
+
+        <tr>
+          <td class="text-center">
+                {{tenant_count.tenant_id}} 
+          </td>
+          <td>
+            <div class="d-flex ">
+              <img src="{% static 'images/faces/face1.jpg' %}" alt="">
+              <div>
+                <h6>{{tenant_count.user}}</h6>
+              </div>
+            </div>
+          </td>
+          <td>
+            <p class="badge badge-opacity-success">{{tenant_count.lease_start_date}}</p>
+          </td>
+          <td>
+            <p class="badge badge-opacity-warning">{{tenant_count.lease_end_date}}</p>
+          </td>
+          <td>
+            <p>{{tenant_count.rental_space}}</p>
+          </td>
+          <td>
+            <p>{{tenant_count.monthly_rent}}</p>
+          </td>
+          <td>
+
+            {% if tenant_count.payment_status == 'Paid' %}
+            <div class="badge badge-opacity-success">{{ tenant_count.payment_status }}</div>
+            {% else %}
+                <div class="badge badge-opacity-danger">{{ tenant_count.payment_status }}</div>
+            {% endif %}
+        
+          </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+  {% endblock %}

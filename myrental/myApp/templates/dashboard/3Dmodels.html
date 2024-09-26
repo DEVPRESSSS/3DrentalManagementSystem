@@ -1,0 +1,53 @@
+{% extends "dashboard/dash_base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row d-flex justify-content-center">
+  <div class="col-6">
+    <p class="mt-2">3D Models list</p>
+  </div>
+  <div class="col-6 d-flex flex-column align-items-end ">
+    <a href="#" class="btn btn-primary text-white custom-btn">
+      <i class="icon-plus custom-icon"></i> Add 3DModel
+    </a>
+  </div>
+</div>
+
+<div class="table-responsive  mt-1 p-1">
+  <table class="table select-table">
+    <thead>
+      <tr>
+        <th class="text-center">3D model ID</th>
+        <th>Rental Space</th>
+        <th>File Name</th>
+        <th>File Path</th>
+        <th>Uploaded By</th>
+        <th>Uploaded At</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rental_model in rental_list_model %}
+      <tr>
+        <td class="text-center">
+          <p>{{ rental_model.model_id }}</p>
+        </td>
+        <td>
+          <p>{{ rental_model.rental_space.name }}</p> 
+        </td>
+        <td>
+          <p>{{ rental_model.file_name }}</p>
+        </td>
+        <td>
+          <p>{{ rental_model.file_path }}</p>
+        </td>
+        <td>
+          <p>{{ rental_model.uploaded_by.username }}</p> <!-- Assuming 'User' model has a 'username' field -->
+        </td>
+        <td>
+          <p>{{ rental_model.uploaded_at }}</p>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+ 
+{% endblock %}
