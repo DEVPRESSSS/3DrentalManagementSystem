@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myApp',
     'debug_toolbar',
+    'dashboard',
     
 ]
 

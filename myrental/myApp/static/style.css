@@ -2,10 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
 }
-#RentalSpace{
 
-    height: 400vh;
-}
 body {
     display: flex;
     flex-direction: column;
@@ -29,3 +26,9 @@ section{
     height: 100vh;
     scroll-behavior: smooth;
 }
+#RentalSpace{
+
+    height: auto;
+}
+
+

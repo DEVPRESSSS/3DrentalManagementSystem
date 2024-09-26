@@ -7,4 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include("myApp.urls")),
     path('__debug__/',include(debug_toolbar.urls)),
+    path('dashboard/', include("dashboard.urls"))
 ]
