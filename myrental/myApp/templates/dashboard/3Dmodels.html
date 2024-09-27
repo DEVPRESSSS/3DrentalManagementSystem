@@ -7,7 +7,7 @@
     <p class="mt-2">3D Models list</p>
   </div>
   <div class="col-6 d-flex flex-column align-items-end ">
-    <a href="#" class="btn btn-primary text-white custom-btn">
+    <a href="{% url '3DmodelsUpsert' %}" class="btn btn-primary text-white custom-btn">
       <i class="icon-plus custom-icon"></i> Add 3DModel
     </a>
   </div>
@@ -17,12 +17,13 @@
   <table class="table select-table">
     <thead>
       <tr>
-        <th class="text-center">3D model ID</th>
-        <th>Rental Space</th>
-        <th>File Name</th>
+        <th class="text-center">ID</th>
+        <th>Space</th>
         <th>File Path</th>
         <th>Uploaded By</th>
         <th>Uploaded At</th>
+        <th>Action</th>
+
       </tr>
     </thead>
     <tbody>
@@ -35,17 +36,22 @@
           <p>{{ rental_model.rental_space.name }}</p> 
         </td>
         <td>
-          <p>{{ rental_model.file_name }}</p>
-        </td>
-        <td>
           <p>{{ rental_model.file_path }}</p>
         </td>
         <td>
-          <p>{{ rental_model.uploaded_by.username }}</p> <!-- Assuming 'User' model has a 'username' field -->
+          <p>{{ rental_model.uploaded_by.username }}</p> 
         </td>
         <td>
           <p>{{ rental_model.uploaded_at }}</p>
         </td>
+        <td >
+            <a href="" class="btn btn-primary text-white mt-3 w-auto"> 
+              <i class="mdi mdi-pen"></i> Edit
+            </a>
+          <a href="" class="btn btn-danger text-white mt-3 mx-0" style="width: 90px;"> 
+              <i class="mdi mdi-delete"></i> Delete
+            </a>
+         </td>
       </tr>
       {% endfor %}
     </tbody>

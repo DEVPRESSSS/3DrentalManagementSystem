@@ -75,8 +75,7 @@ class Payment(models.Model):
 class Model(models.Model):
     model_id = models.AutoField(primary_key=True)
     rental_space = models.ForeignKey('RentalSpaces', on_delete=models.CASCADE)  
-    file_name = models.CharField(max_length=255)
-    file_path = models.CharField(max_length=255)
+    file_path = models.ImageField(upload_to='images/')
     uploaded_by = models.ForeignKey('User', on_delete=models.CASCADE)  #
     uploaded_at = models.DateTimeField(auto_now_add=True)
 

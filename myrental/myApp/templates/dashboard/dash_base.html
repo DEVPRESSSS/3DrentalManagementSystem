@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
     <link rel="stylesheet" href="{% static 'vendors/bootstrap-datepicker/bootstrap-datepicker.min.css' %}">
     <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css">
-    </head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
   
     <!-- endinject -->
@@ -25,11 +25,13 @@
     <link rel="stylesheet" type="text/css" href="{% static '/js/select.dataTables.min.css' %}">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{% static '/images/favicon/QQmallfavicon.png' %}" />
+    <link href="{% static 'css/toastr.min.css' %}" rel="stylesheet">
+
   </head>
   <body class="with-welcome-text">
+
     <div class="container-scroller">
 
       <!-- partial:partials/_navbar.html -->
@@ -224,11 +226,9 @@
                             <a class="nav-link" href="">Virtual Tours</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">Manage 3D Models</a>
+                            <a class="nav-link" href="{% url '3Dmodels' %}">Manage 3D Models</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url '3Dmodels' %}">Upload 3D Models</a>
-                        </li>
+                       
                     </ul>
                 </div>
             </li>
@@ -289,9 +289,9 @@
                   </div>
                   <div class="tab-content tab-content-basic">
                       {% block content %}
-
-
+                           
                       {% endblock %}
+
                   </div>
                 </div>
               </div>
@@ -306,6 +306,10 @@
       </div>
       <!-- page-body-wrapper ends -->
     </div>
+
+
+
+
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
@@ -327,6 +331,23 @@
     <script src="{% static 'js/dashboard.js' %}"></script>
     <!-- <script src="assets/js/Chart.roundedBarCharts.js"></script> -->
     <!-- End custom js for this page -->  
-    
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'js/toastr.min.js' %}" type="text/javascript"></script>
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.tags == 'success'%}
+            <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'info' %}
+            <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'warning' %}
+            <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% elif message.tags == 'error' %}
+            <script type=text/javascript>toastr.{{ message.tags }}('{{ message }}')</script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+   
+
   </body>
 </html>

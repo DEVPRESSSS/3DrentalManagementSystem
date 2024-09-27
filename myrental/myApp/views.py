@@ -29,4 +29,3 @@ def contact(request):
 
     return render (request,"myapp/contact.html")
 
-
