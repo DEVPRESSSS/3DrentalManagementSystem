@@ -1,0 +1,43 @@
+{% extends "dashboard/dash_base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="row">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_rental_space">Rental Space</label>
+            <select class="form-control" id="id_rental_space" name="rental_space">
+                {% for space in form.rental_space.field.queryset %}
+                    <option value="{{ space.space_id }}">{{ space.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+        <div class="form-group">
+            <label for="id_file_path">Upload Image</label>
+            <input type="file" class="form-control" id="id_file_path" name="file_path">
+        </div>
+
+        <div class="form-group">
+            <label for="id_uploaded_by">Uploaded by</label>
+            <select class="form-control" id="id_uploaded_by" name="uploaded_by" required>
+                <option value="" disabled selected>Select a user</option>
+                {% for user in form.uploaded_by.field.queryset %}
+                    <option value="{{ user.user_id }}">{{ user.username }}</option>
+
+                {% endfor %}
+            </select>
+            
+        </div>
+        
+        <button type="submit" class="btn btn-primary text-white">Save</button>
+    </form>
+</div>
+
+{% endblock %}

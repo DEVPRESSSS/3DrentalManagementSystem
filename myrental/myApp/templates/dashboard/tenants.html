@@ -3,61 +3,78 @@
 
 {% block content %}
 
-  <p>Tenant list</p>
-  <div class="table-responsive  mt-1 p-1">
-    <table class="table select-table">
-      <thead>
-        <tr>
-          <th class="text-center">TenantID</th>
-          <th>Tenant Name</th>
-          <th>Lease Start date</th>
-          <th>Lease End date</th>
-          <th>Rental Space</th>
-          <th>Monthly rent</th>
-          <th> Payment Status</th>
-        </tr>
-      </thead>
-      <tbody>
-
-        {% for tenant_count in tenants_list %}
-
-        <tr>
-          <td class="text-center">
-                {{tenant_count.tenant_id}} 
-          </td>
-          <td>
-            <div class="d-flex ">
-              <img src="{% static 'images/faces/face1.jpg' %}" alt="">
-              <div>
-                <h6>{{tenant_count.user}}</h6>
-              </div>
-            </div>
-          </td>
-          <td>
-            <p class="badge badge-opacity-success">{{tenant_count.lease_start_date}}</p>
-          </td>
-          <td>
-            <p class="badge badge-opacity-warning">{{tenant_count.lease_end_date}}</p>
-          </td>
-          <td>
-            <p>{{tenant_count.rental_space}}</p>
-          </td>
-          <td>
-            <p>{{tenant_count.monthly_rent}}</p>
-          </td>
-          <td>
-
-            {% if tenant_count.payment_status == 'Paid' %}
-            <div class="badge badge-opacity-success">{{ tenant_count.payment_status }}</div>
-            {% else %}
-                <div class="badge badge-opacity-danger">{{ tenant_count.payment_status }}</div>
-            {% endif %}
-        
-          </td>
-        </tr>
-        {% endfor %}
-
-      </tbody>
-    </table>
+<div class="row d-flex justify-content-center">
+  <div class="col-6">
+    <p class="mt-2">Tenants list</p>
   </div>
-  {% endblock %}
+  <div class="col-6 d-flex flex-column align-items-end">
+    <a href="{% url 'AddTenant' %}" class="btn btn-primary text-white custom-btn">
+      <i class="icon-plus custom-icon"></i> Add Tenants
+    </a>
+  </div>
+</div>
+
+<div class="table-responsive mt-1 p-1">
+  <table class="table select-table">
+    <thead>
+      <tr>
+        <th class="text-center">TenantID</th>
+        <th>Tenant Name</th>
+        <th>Lease Start date</th>
+        <th>Lease End date</th>
+        <th>Rental Space</th>
+        <th>Monthly rent</th>
+        <th>Payment Status</th>
+        <th>Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for tenant in tenants_list %}
+      <tr>
+        <td class="text-center">{{ tenant.tenant_id }}</td>
+        <td>
+          <div class="d-flex">
+            <img src="{% static 'images/faces/face1.jpg' %}" alt="">
+            <div>
+              <h6>{{ tenant.user.username }}</h6>
+            </div>
+          </div>
+        </td>
+        <td>
+          <p class="badge badge-opacity-success">{{ tenant.lease_start_date }}</p>
+        </td>
+        <td>
+          <p class="badge badge-opacity-warning">{{ tenant.lease_end_date }}</p>
+        </td>
+        <td>
+          <p>{{ tenant.rental_space.name }}</p>
+        </td>
+        <td>
+          <p>{{ tenant.monthly_rent }}</p>
+        </td>
+        <td>
+          {% if tenant.payment_status == 'Paid' %}
+          <div class="badge badge-opacity-success">{{ tenant.payment_status }}</div>
+          {% else %}
+          <div class="badge badge-opacity-danger text-danger">{{ tenant.payment_status }}</div>
+          {% endif %}
+        </td>
+        <td class="w-auto">
+          <a href="{% url 'EditTenant' tenant.tenant_id %}" class="btn btn-primary text-white mt-3 w-auto">
+            <i class="mdi mdi-pen"></i> Edit
+          </a>
+
+          <a href="{% url 'DeleteTenant' tenant.tenant_id %}" class="btn btn-danger text-white delete-link mt-3">
+            <i class="mdi mdi-delete"></i> Delete
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}

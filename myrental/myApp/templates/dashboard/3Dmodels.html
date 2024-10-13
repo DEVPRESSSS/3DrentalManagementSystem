@@ -36,8 +36,13 @@
           <p>{{ rental_model.rental_space.name }}</p> 
         </td>
         <td>
-          <p>{{ rental_model.file_path }}</p>
-        </td>
+          {% if rental_model.file_path.url %}
+              <img src="{{ rental_model.file_path.url }}" alt="test" width="500" height="500">
+          {% else %}
+              <img src="{% static '3.jpg' %}" alt="test" width="200" height="200">
+          {% endif %}
+      </td>
+      
         <td>
           <p>{{ rental_model.uploaded_by.username }}</p> 
         </td>
@@ -45,10 +50,12 @@
           <p>{{ rental_model.uploaded_at }}</p>
         </td>
         <td >
-            <a href="" class="btn btn-primary text-white mt-3 w-auto"> 
-              <i class="mdi mdi-pen"></i> Edit
-            </a>
-          <a href="" class="btn btn-danger text-white mt-3 mx-0" style="width: 90px;"> 
+          <a href="{% url 'EditModel' rental_model.model_id %}" class="btn btn-primary text-white mt-3 w-auto"> 
+
+                    <i class="mdi mdi-pen"></i> Edit
+          </a>
+
+          <a href="{% url 'DeleteModel' rental_model.model_id %}" class="btn btn-danger text-white mt-3 mx-0 delete-link " style="width: 90px;"> 
               <i class="mdi mdi-delete"></i> Delete
             </a>
          </td>

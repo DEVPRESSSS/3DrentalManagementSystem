@@ -1,0 +1,75 @@
+{% extends "dashboard/dash_base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h5>Update Tenant</h5>
+
+<div class="row">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Render form fields automatically -->
+        <div class="form-group">
+            <label for="tenant_id">Tenant Name/Account</label>
+            <select class="form-control" id="tenant_id" name="user" required>
+                {% for tenant in form.fields.user.queryset %}
+                    <option value="{{ tenant.user_id }}" {% if tenant.user_id == form.instance.user.user_id %}selected{% endif %}>
+                        {{ tenant.username }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Lease Start Date -->
+        <div class="form-group">
+            <label for="lease_start_date">Lease Start Date</label>
+            <input type="date" class="form-control" id="lease_start_date" name="lease_start_date" required 
+                   value="{{ form.instance.lease_start_date|date:'Y-m-d' }}">
+        </div>
+
+        <!-- Lease End Date -->
+        <div class="form-group">
+            <label for="lease_end_date">Lease End Date</label>
+            <input type="date" class="form-control" id="lease_end_date" name="lease_end_date" required 
+                   value="{{ form.instance.lease_end_date|date:'Y-m-d' }}">
+        </div>
+
+        <!-- Rental Space -->
+        <div class="form-group">
+            <label for="space">Rental Space</label>
+            <select class="form-control" id="space" name="rental_space" required>
+                <option value="" disabled>Select a space</option>
+                {% for space in form.fields.rental_space.queryset %}
+                    <option value="{{ space.space_id }}" {% if space.space_id == form.instance.rental_space.space_id %}selected{% endif %}>
+                        {{ space.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Monthly Rent -->
+        <div class="form-group">
+            <label for="monthly_rent">Monthly Rent</label>
+            <input type="number" class="form-control" id="monthly_rent" name="monthly_rent" required 
+                   value="{{ form.instance.monthly_rent }}">
+        </div>
+
+        <!-- Payment Status -->
+        <div class="form-group">
+            <label for="payment_status">Payment Status</label>
+            <select class="form-control" id="payment_status" name="payment_status" required>
+                <option value="" disabled>Select a status</option>
+                {% for choice, label in form.fields.payment_status.choices %}
+                    <option value="{{ choice }}" {% if choice == form.instance.payment_status %}selected{% endif %}>
+                        {{ label }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary text-white">Save</button>
+    </form>
+</div>
+
+{% endblock %}

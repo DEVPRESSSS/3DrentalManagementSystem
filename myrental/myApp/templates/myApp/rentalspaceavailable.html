@@ -3,8 +3,22 @@
 {% block title %}Rental Space Available{% endblock %}
 
 {% block content %}
+<script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.149.0/examples/jsm/"
+      }
+    }
+  </script>
+
+<div class="container bg-black">
+    
 
 
+    <script type="module" src="{% static 'js/Space/main.js' %}"></script>
+
+</body>
 
 
 

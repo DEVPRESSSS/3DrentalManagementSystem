@@ -82,6 +82,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'myApp.User'  # Replace 'myApp' with your actual app name
 
 
 # Password validation
@@ -128,7 +129,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "myApp" / "static",
 ]
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'dashboard', 'media')
 MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

@@ -9,7 +9,7 @@
 
   </div>
   <div class="col-6 d-flex flex-column align-items-end ">
-    <a href="#" class="btn btn-primary text-white custom-btn">
+    <a href="{% url 'AddRentalSpace' %}" class="btn btn-primary text-white custom-btn">
       <i class="icon-plus custom-icon"></i> Add space
     </a>
     
@@ -29,6 +29,7 @@
           <th>Location</th>
           <th>Model path</th>
           <th>Created At</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -51,7 +52,12 @@
             <p>{{rentals.price}}</p>
           </td>
           <td>
-            <p class="badge badge-opacity-success">{{rentals.status}}</p>
+
+            {% if rentals.status == 'Available' %}
+               <p class="badge badge-opacity-success">{{rentals.status}}</p>
+            {% else %}
+               <p class="badge badge-opacity-danger">{{rentals.status}}</p>
+            {% endif %}
           </td>
           <td>
             <p>{{rentals.dimensions}}</p>
@@ -67,6 +73,15 @@
           <td>
             <p>{{rentals.created_at}}</p>
 
+          </td>
+          <td class="w-auto">
+            <a href="" class="btn btn-primary text-white mt-3 w-auto"> 
+                      <i class="mdi mdi-pen"></i> Edit
+            </a>
+  
+            <a href="" class="btn btn-danger text-white mt-3 mx-0 w-auto"> 
+                <i class="mdi mdi-delete"></i> Delete
+              </a>
           </td>
         </tr>
         {% endfor %}

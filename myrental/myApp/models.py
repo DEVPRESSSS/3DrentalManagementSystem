@@ -1,24 +1,47 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils.translation import gettext_lazy as _
 
-# Create your models here.
+class UserManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError(_('The Email field must be set'))
+        email = self.normalize_email(email)
+        user = self.model(username=username, email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
-class User(models.Model):
+    def create_superuser(self, username, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(username, email, password, **extra_fields)
+
+class User(AbstractBaseUser, PermissionsMixin):
     USER_ROLE_CHOICES = [
         ('Admin', 'Admin'),
-        ('Customer', 'Customer'),
+        ('Tenant', 'Tenant'),
     ]
 
     user_id = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=50)
-    password = models.BinaryField()  
-    role = models.CharField(max_length=20, choices=USER_ROLE_CHOICES)
-    email = models.EmailField(max_length=100, blank=True, null=True)
+    username = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=100, unique=True)
     phone = models.CharField(max_length=15, blank=True, null=True)
+    role = models.CharField(max_length=20, choices=USER_ROLE_CHOICES, default='Tenant')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)  
+
+    objects = UserManager()
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return self.username
-
 
 class RentalSpaces(models.Model):
     STATUS_CHOICES = [
@@ -76,10 +99,10 @@ class Model(models.Model):
     model_id = models.AutoField(primary_key=True)
     rental_space = models.ForeignKey('RentalSpaces', on_delete=models.CASCADE)  
     file_path = models.ImageField(upload_to='images/')
-    uploaded_by = models.ForeignKey('User', on_delete=models.CASCADE)  #
+    uploaded_by = models.ForeignKey('User',  on_delete=models.SET_NULL, null=True, blank=True)  
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.file_name
+        return self.file_path.name
 
 
