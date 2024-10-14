@@ -44,7 +44,7 @@
           </div>
           <div>
             <a class="navbar-brand brand-logo" >
-              <img src="{% static 'images/qqmalllogo.png' %}" alt="logo" width="150" height="150" />
+              <img src="{% static 'images/qqmalllogo.png' %}" alt="logo" />
             </a>
             <a class="navbar-brand brand-logo-mini" >
               <img src="{% static 'images/qqmalllogo.png' %}" alt="logo" />
@@ -222,7 +222,7 @@
                 <div class="collapse" id="3d-integration">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" href="">Virtual Tours</a>
+                            <a class="nav-link" href="{% url 'virtualtour' %}">Virtual 3D Tour</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url '3Dmodels' %}">Manage 3D Models</a>
@@ -231,6 +231,29 @@
                     </ul>
                 </div>
             </li>
+
+
+
+                <!--Payment-->
+              <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="collapse" href="#payment" aria-expanded="false" aria-controls="payment">
+                    <i class="mdi mdi-credit-card-outline menu-icon"></i>
+                    <span class="menu-title">Payment Management</span>
+                      <i class="menu-arrow"></i>
+                  </a>
+                  <div class="collapse" id="payment">
+                      <ul class="nav flex-column sub-menu">
+                          <li class="nav-item">
+                              <a class="nav-link" href="">Upcoming payments</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="">Overview Payments</a>
+                          </li>
+                         
+                      </ul>
+                  </div>
+              </li>
+  
 
 
             <!--Chart Date-->

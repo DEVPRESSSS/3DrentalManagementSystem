@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-6 mb-2 mt-2 border-3 border-danger p-2">
-                <div class="card shadow-sm" style="width: 40rem;">
+                <div class="card shadow-sm border-2 p-1 border-success" style="width: 40rem;">
                     <div class="card-header bg-white border-0 border-success">
                         <div class="row d-flex justify-content-center">
                             <div class="col-2">
@@ -17,37 +17,38 @@
                                 <p class="text-primary text-end small">3 hrs ago</p>
                             </div>
                             <div class="col-8 d-flex flex-column align-items-end">
-                                <i class="bi bi-bookmark fs-4"></i>
                             </div>
                             <div class="col-2 bg-success" style="border-radius: 0 0 0 100px;">
                                 <p class="text-white text-sm-center small mt-1">{{ space.status }}<br>Now</p>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Move image outside the card-header -->
-                    <img src="{% static 'Space1.jpg' %}" alt="Room Picture" class="card-img-top  rounded-2" height="300" width="300">
-                    
+                    {% for model in rental_space_models %}     
+                            {% if model.rental_space.space_id == space.space_id %}
+                                <img src="{{ model.file_path.url }}" alt="Room Picture" class="card-img-top rounded-2" height="300" width="300">
+                            {% endif %}
+                    {% endfor %}
+                
                     <div class="card-body d-flex mt-0">
                         <div class="col-6">
                             <h6 class="card-title text-center text-primary fw-bold mt-2">{{ space.name }}</h6>
-                            <p class="card-text text-center text-muted text-wrap mt-2">{{ space.description }}</p>
+                            <p class="card-text text-center text-muted text-wrap">{{ space.description }}</p>
                             <p class="card-text text-center text-muted">
-                                <i class="bi bi-geo-alt-fill"></i> Third Floor
+                                <i class="bi bi-geo-alt-fill"></i> {{space.location}}
                             </p>
                         </div>
 
-                        <div class="col-6">
-                            <h6 class="card-text text-center text-primary mt-2">
+                        <div class="col-6 h-auto">
+                            <h6 class="card-text text-center text-success fw-bold  mt-2">
                                 <i class="bi bi-currency-dollar"></i> {{ space.price }}
                             </h6>
-                            <p class="card-text text-center text-primary">{{ space.dimensions }}</p>
+                            <p class="card-text text-center text-primary mt-4">{{ space.dimensions }}</p>
                         </div>
                     </div>
 
                     <div class="card-footer border-0 bg-body d-flex justify-content-end">
                         <a href="#" class="btn btn-primary">
-                            <i class="bi bi-house"></i> Rent
+                            <i class="bi bi-send"></i> Book Now
                         </a>
                     </div>
                 </div>

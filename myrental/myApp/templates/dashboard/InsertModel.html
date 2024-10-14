@@ -3,39 +3,80 @@
 
 {% block content %}
 
-
-
 <div class="row">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         
+        <!-- Rental Space Field -->
         <div class="form-group">
             <label for="id_rental_space">Rental Space</label>
             <select class="form-control" id="id_rental_space" name="rental_space">
                 {% for space in form.rental_space.field.queryset %}
-                    <option value="{{ space.space_id }}">{{ space.name }}</option>
+                    <option value="{{ space.space_id }}" {% if form.rental_space.value == space.space_id %}selected{% endif %}>
+                        {{ space.name }}
+                    </option>
                 {% endfor %}
             </select>
+            <!-- Display validation errors for the rental_space field -->
+            {% if form.rental_space.errors %}
+                <div class="text-danger">
+                    {% for error in form.rental_space.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
-
+        <!-- File Path Field -->
         <div class="form-group">
             <label for="id_file_path">Upload Image</label>
             <input type="file" class="form-control" id="id_file_path" name="file_path">
+            <!-- Display validation errors for the file_path field -->
+            {% if form.file_path.errors %}
+                <div class="text-danger">
+                    {% for error in form.file_path.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
 
+        <div class="form-group">
+            <label for="three_path">Upload 3D Room</label>
+            <input type="file" class="form-control" id="three_path" name="three_path">
+            <!-- Display validation errors for the file_path field -->
+            {% if form.three_path.errors %}
+                <div class="text-danger">
+                    {% for error in form.three_path.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+
+        <!-- Uploaded By Field -->
         <div class="form-group">
             <label for="id_uploaded_by">Uploaded by</label>
             <select class="form-control" id="id_uploaded_by" name="uploaded_by" required>
                 <option value="" disabled selected>Select a user</option>
                 {% for user in form.uploaded_by.field.queryset %}
-                    <option value="{{ user.user_id }}">{{ user.username }}</option>
-
+                    <option value="{{ user.user_id }}" {% if form.uploaded_by.value == user.user_id %}selected{% endif %}>
+                        {{ user.username }}
+                    </option>
                 {% endfor %}
             </select>
-            
+            <!-- Display validation errors for the uploaded_by field -->
+            {% if form.uploaded_by.errors %}
+                <div class="text-danger">
+                    {% for error in form.uploaded_by.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
         </div>
         
+        <!-- Submit Button -->
         <button type="submit" class="btn btn-primary text-white">Save</button>
     </form>
 </div>

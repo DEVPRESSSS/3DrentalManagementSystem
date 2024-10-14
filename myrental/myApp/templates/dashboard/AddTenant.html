@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<h3>Add Tenant</h3>
+<h5>Add Tenant</h5>
 <div class="row">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -10,7 +10,10 @@
         <div class="form-group">
             <label for="tenant_id">Tenant Name/Account</label>
             <select class="form-control" id="tenant_id" name="user" required>
+                <option value="" disabled selected>Select Tenant</option>
+
                 {% for tenant in form.user.field.queryset %}
+
                     <option value="{{ tenant.user_id }}">{{ tenant.username }}</option>
                 {% endfor %}
             </select>

@@ -7,10 +7,12 @@ from dashboard.forms import RegistrationForm, LoginForm
 
 
 def home(request):
-
-    rentals_space = RentalSpaces.objects.filter(status="Available")
+    rentals_spaces = RentalSpaces.objects.filter(status="Available")
     
-    return render(request, "myapp/Home.html", {'rentalspace': rentals_space})  
+    rental_space_models = Model.objects.filter(rental_space__in=rentals_spaces)
+    
+    return render(request, "myapp/Home.html", {'rentalspaces': rentals_spaces, 'rental_space_models': rental_space_models})
+ 
 
 
 
@@ -44,7 +46,7 @@ def register(request):
         if form.is_valid():
             # Set the role to 'Customer' before saving
             user = form.save(commit=False)
-            user.role = 'Tenant'
+            user.role = 'User'
             user.save()
 
             return redirect('login')
@@ -65,7 +67,9 @@ def rentalspace(request):
 def rentalspaceview(request,id):
 
     space = RentalSpaces.objects.get(space_id=id)
-    return render(request, "myapp/rentalspaceview.html", {'space': space})
+    rental_space_models = Model.objects.filter(rental_space=space)
+
+    return render(request, "myapp/rentalspaceview.html", {'space': space, 'rental_space_models': rental_space_models})
 
 
 #Render about

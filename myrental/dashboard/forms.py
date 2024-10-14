@@ -6,7 +6,7 @@ from myApp.models import User, Model, Tenant,RentalSpaces  # Ensure your models 
 class ModelForm(forms.ModelForm):
     class Meta:
         model = Model
-        fields = ['rental_space', 'file_path', 'uploaded_by']
+        fields = ['rental_space', 'file_path','three_path', 'uploaded_by']
 
 
 class TenantForm(forms.ModelForm):
@@ -21,11 +21,14 @@ class RentalSpaceForm(forms.ModelForm):
 
     class Meta:
         model= RentalSpaces
-        fields= ['name','description','price','status','dimensions','location','model_path',]
+        fields= ['name','description','price','status','dimensions','location',]
+
 
 class LoginForm(AuthenticationForm): 
     username = forms.CharField(max_length=50)
     password = forms.CharField(widget=forms.PasswordInput)
+
+
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)

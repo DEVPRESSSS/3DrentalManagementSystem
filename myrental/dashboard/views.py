@@ -26,27 +26,39 @@ def tenants(request):
 
     return render(request,"dashboard/tenants.html",{"tenants_list":tenants_list})
 
-#renders the rentals.html
 
+#renders the virtualtour.html
+
+def virtualtour(request):
+     
+
+        return render(request,'dashboard/VirtualTourIndex.html')
+
+
+
+#renders the rentals.html
 def rental(request):
     rental_list = RentalSpaces.objects.all()
     return render(request,"dashboard/rentals.html",{"rental_list":rental_list})
 
 
+#Add new rental space
 def AddRentalSpace(request):
 
     if request.method == 'POST':
          
-         form = RentalSpaceForm(request.POST,request.FILES)
+         form = RentalSpaceForm(request.POST)
 
          if form.is_valid():
               
+              
               form.save()
-
+           
               messages.success(request, 'New rental space added successfully!')
               return redirect('rental')
          else:
             messages.error(request, 'Error adding the rental. Please check the form.')
+            print(f"{form.errors}")
     else:
              
               form= RentalSpaceForm()
@@ -54,8 +66,44 @@ def AddRentalSpace(request):
     return render (request,"dashboard/AddRentalSpace.html",{'form': form})
 
 
+def DeleteRental(request, id):
+     
+    model_instance = get_object_or_404(RentalSpaces, space_id= id)
+
+    if model_instance:
+         
+        model_instance.delete()
+
+        messages.success(request,'Rental Space deleted successfully')
+
+    return redirect('rental')
+
+def EditRental(request, id):
+     
+    my_model_instance = get_object_or_404(RentalSpaces, space_id=id)
+
+    rental_space = RentalSpaces.objects.all()
 
 
+   
+    if request.method == 'POST':
+        form = RentalSpaceForm(request.POST, instance=my_model_instance)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"Rental {id} updated successfully")
+            return redirect('rental')
+        else:
+            messages.error(request, 'Error updating the rental. Please check the form.')
+
+    else:
+        form = RentalSpaceForm(instance=my_model_instance)
+
+    return render(request, "dashboard/EditRental.html", {'form': form, 
+                                                        'space_id': id,
+                                                        'rental_space':rental_space
+
+                                                        })
 
 
 #renders the 3Dmodels.html
@@ -76,12 +124,6 @@ def Upsert3D(request):
          if form.is_valid():
               
               form.save()
-              file_path = form.cleaned_data['file_path'].model_id
-
-              rental_space= get_object_or_404(RentalSpaces, model_id= file_path)
-
-              rental_space.model_path= file_path
-
               messages.success(request, 'New Model added successfully!')
               return redirect('3Dmodels')
          else:
@@ -161,6 +203,18 @@ def AddTenant(request):
 
               rental_space.status = 'Occupied'  
               rental_space.save()
+
+              user_ids = form.cleaned_data['user'].user_id
+
+              tenant_obj= get_object_or_404(User,user_id = user_ids)
+
+              tenant_obj.role= 'Tenant'
+
+              tenant_obj.save()
+
+
+
+
               messages.success(request, 'New Tenant added successfully!')
 
              
@@ -172,7 +226,8 @@ def AddTenant(request):
     else:
              
               form= TenantForm()
-              form.fields['user'].queryset = User.objects.filter(is_superuser=False, is_staff=False)
+              form.fields['user'].queryset = User.objects.filter(is_superuser=False, is_staff=False, role= 'User')
+              form.fields['rental_space'].queryset = RentalSpaces.objects.filter(status= 'Available')
 
 
     return render(request, "dashboard/AddTenant.html",{'form':form})
@@ -223,3 +278,9 @@ def DeleteTenant(request,id):
 
     
     return redirect('tenants')
+
+
+
+
+
+     

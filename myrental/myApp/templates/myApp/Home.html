@@ -5,90 +5,67 @@
 {% block content %}
 
 <section id="Home" class=" mt-lg-4 mb-0  p-2" style="margin-top: 100px;">
-  
   <div class="row h-100 d-flex justify-content-center">
-
-        <div class="col-6 p-2" >
-
-           <h1 class="display-3 text-primary">Easy Way To <br>
-            Find Your Dream <br> Business Space </h1>
-
-            <p class="text-muted text-wrap">
-              Explore our rental spaces and experience the 3D virtual tour. With a variety of options tailored to meet your business needs, you can easily find the perfect space to launch or grow your enterprise.
-          </p>
-
-          <div class="row">
-
-                <div class="col-6 d-flex flex-column align-items-end">
-                      <a href="#Contacts" class="btn btn-primary"> Contact Us</a>
-                </div>
-
-                <div class="col-6 d-flex flex-column align-items-start">
-                    <a href="#RentalSpace" class="btn btn-outline-primary border-1 border-primary"> Explore</a>
-                </div>
-          </div>
-          
-        </div>
-
-        <div class="col-6 p-2 d-flex flex-column align-items-center">
-          <div class="img-wrapper d-flex justify-content-center">
-              <img src="{% static 'agreement.jpg' %}" alt="qqmalllogo" width="400" height="400" class="rounded-4">
-          </div>
+    <div class="col-6 p-2">
+       <h1 class="display-3 text-primary">Easy Way To <br>Find Your Dream <br> Business Space</h1>
+       <p class="text-muted text-wrap">
+          Explore our rental spaces and experience the 3D virtual tour. With a variety of options tailored to meet your business needs, you can easily find the perfect space to launch or grow your enterprise.
+       </p>
+       <div class="row">
+         <div class="col-6 d-flex flex-column align-items-end">
+              <a href="#Contacts" class="btn btn-primary"> Contact Us</a>
+         </div>
+         <div class="col-6 d-flex flex-column align-items-start">
+              <a href="#RentalSpace" class="btn btn-outline-primary border-1 border-primary"> Explore</a>
+         </div>
+       </div>
+    </div>
+    <div class="col-6 p-2 d-flex flex-column align-items-center">
+      <div class="img-wrapper d-flex justify-content-center">
+          <img src="{% static 'agreement.jpg' %}" alt="qqmalllogo" width="400" height="400" class="rounded-4">
       </div>
-
-     
-    
+    </div>
   </div>
-        
 </section>
-  
+
 <section id="RentalSpace" class="mb-0 p-2">
   <div class="container">
-    <h4 class=" text-primary"> Our Available Spaces</h4>
-
-      <div class="row p-2 d-flex ">
-        {% for space in rentalspace %}
-            <div class="col-4 mb-4">
-                <div class="card border-0 shadow-sm" style="width: 18rem;">
-                    <img src="{% static '2.jpg' %}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h6 class="card-title">Name: {{ space.name }}</h6>
-                        <p class="card-text">Description: {{ space.description }}</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-center">
-                        <a href="{% url 'rentalspaceview' space.space_id %}" class="btn btn-primary">
-                                 <i class="bi bi-search"></i> View
-                         </a>
-                    </div>
-                </div>
+    <h4 class="text-primary"> Our Available Spaces</h4>
+    <div class="row p-2 d-flex ">
+      {% for space in rentalspaces %}
+        <div class="col-4 mb-4">
+          <div class="card  shadow-sm" style="width: 18rem;">
+            {% for model in rental_space_models %}
+              {% if space.space_id == model.rental_space.space_id %}
+                <img src="{{ model.file_path.url }}" class="card-img-top" alt="space image" height="200px">
+              {% endif %}
+            {% endfor %}
+            <div class="card-body">
+              <h6 class="card-title">{{ space.name }}</h6>
+              <p class="card-text text-muted">{{ space.description }}</p>
             </div>
-        {% endfor %}
-    
-     
-      </diV>
-
-  </div>
-   
-</section>
-  
-
-  
-<section id="AboutUs " class="mt-4">
-
-    <div class="row d-flex p-2 ">
-
-        <div class="col-6 ">
-           <h3  class="text-start text-primary">About Us</h3>
-
-           <p class="text-muted text-wrap mt-2 ">We are ensuring that we are giving you the best services, which help you to find spaces for your ideal business with much confidence. 
-            Having a good businnes is a dream for everyone</p>
-
+            <div class="card-footer d-flex justify-content-center">
+              <a href="{% url 'rentalspaceview' space.space_id %}" class="btn btn-primary">
+                <i class="bi bi-chevron-right"></i> Read More
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="col-6 d-flex flex-column align-items-center ">
-              <img src="{% static 'images/qqmalllogo.png' %}" alt="" width="400" height="400">
-        </div>
-
+      {% endfor %}
     </div>
+  </div>
 </section>
-  
+
+<section id="AboutUs" class="mt-4">
+  <div class="row d-flex p-2">
+    <div class="col-6 ">
+       <h3 class="text-start text-primary">About Us</h3>
+       <p class="text-muted text-wrap mt-2">We are ensuring that we are giving you the best services, which help you to find spaces for your ideal business with much confidence. Having a good business is a dream for everyone.</p>
+    </div>
+    <div class="col-6 d-flex flex-column align-items-center ">
+        <img src="{% static 'images/qqmalllogo.png' %}" alt="" width="400" height="400">
+    </div>
+  </div>
+</section>
+
 {% endblock %}
